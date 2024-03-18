@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>偵測系統深色模式/淺色模式</title>
+  <script>
+    window.onload = function () {
+      const mode = document.querySelector('.text')
+      function dark() {
+        console.log('深色模式');
+        mode.innerText = '深色模式'
+      }
+
+      function light() {
+        console.log('淺色模式');
+        mode.innerText = '淺色模式'
+      }
+
+      // 首次載入現在的模式
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        dark();
+      } else {
+        light()
+      }
+
+      // 監聽模式的變更
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        const newColorScheme = e.matches ? "dark" : "light";
+        if (newColorScheme == "dark") {
+          dark();
+        } else if (newColorScheme == "light") {
+          light()
+        }
+      });
+    };
+  </script>
+</head>
+
+<body>
+  <h3>目前裝置的模式為:</h3>
+  <div class="text"></div>
+</body>
+
+</html>
